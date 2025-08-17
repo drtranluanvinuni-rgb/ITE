@@ -1,0 +1,506 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ITE-style Exam — Enhanced</title>
+<style>
+:root{
+  --bg:#0a0f1f;--card:#0e152a;--muted:#9fb0c8;--text:#fff;--accent:#78b0ff;--danger:#ff6b6b;--ok:#27c498;--warn:#ffb020;--cardBorder:#213050;--outline:#4d79ff;--chip:#0e162b;--chipBorder:#2a3a60;--chipGrad1:#0f1a30;--chipGrad2:#0c182c;--dotBg:#0f1a30;--dotBorder:#2a3a60;--answeredBg:#0f2a1f;--answeredBorder:#1e6b4d;--flagBg:#2a1f0f;--flagBorder:#ffb020;--btnGrad1:#152445;--btnGrad2:#0f1a33;--btnBorder:#2a3a60;--track:#223150;--orange:#ff8c00;--progressColor:var(--accent);
+}
+body[data-theme=light]{--bg:#f5f8ff;--card:#fff;--muted:#5a6b85;--text:#0f172a;--accent:#1e3a8a;--danger:#ef4444;--ok:#10b981;--warn:#d97706;--cardBorder:#dbe1f3;--outline:#4f46e5;--chip:#f7f9ff;--chipBorder:#e5e7eb;--chipGrad1:#fff;--chipGrad2:#fff;--dotBg:#fff;--dotBorder:#e5e7eb;--answeredBg:#e9fbf4;--answeredBorder:#10b981;--flagBg:#fff6ed;--flagBorder:#d97706;--btnGrad1:#fff;--btnGrad2:#fff;--btnBorder:#e5e7eb;--track:#e5e7eb;--orange:#ea580c;--progressColor:var(--accent);background:linear-gradient(180deg,#f3f6ff,#fafcff)}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica Neue,Noto Sans,sans-serif;color:var(--text);background:radial-gradient(80% 60% at 50% 0%,#0e1a33,var(--bg) 60% 100%)}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(8px) saturate(140%);background:linear-gradient(180deg,rgba(10,15,31,.85),rgba(10,15,31,.3));border-bottom:1px solid #1c2747}
+body[data-theme=light] header{background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.6));border-bottom:1px solid #e5e7eb}
+.wrap{max-width:1400px;margin:0 auto;padding:14px 16px}
+.brand{display:flex;align-items:center;gap:10px}.brand h1{font-size:18px;margin:0}.tag{font-size:12px;color:var(--muted)}
+
+/* Buttons */
+.chip-btn,.btn,.pill,.icon-btn{transition:border-color .2s ease, box-shadow .2s ease, transform .06s ease}
+.chip-btn{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid var(--cardBorder);background:var(--chip);cursor:pointer;user-select:none}
+.chip-btn:hover{border-color:var(--outline);box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.lang-toggle{margin-left:auto}.lang-flags{display:inline-flex;align-items:center;gap:8px}
+.lang-flag-img{width:20px;height:14px;object-fit:cover;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.theme-toggle{margin-left:8px}
+
+/* Layout */
+main{transition:.0s}.grid{display:grid;grid-template-columns:260px 1fr;gap:16px;max-width:1400px;margin:16px auto;padding:0 16px}
+.card{background:linear-gradient(180deg,rgba(18,26,47,.85),rgba(12,19,36,.92));border:1px solid var(--cardBorder);border-radius:16px;padding:16px;overflow:hidden;position:relative}
+body[data-theme=light] .card{background:#fff}
+.section-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;min-height:40px;border-radius:12px;border:1px solid var(--btnBorder);background:linear-gradient(180deg,var(--btnGrad1),var(--btnGrad2));color:var(--text);cursor:pointer}
+.btn.block{display:block;width:100%}.btn.sm{min-height:32px;padding:6px 10px;font-size:12px}
+.btn.ok{border-color:var(--answeredBorder);background:var(--answeredBg)}
+.btn.warn{border-color:var(--warn);background:var(--flagBg)}
+.btn.danger{border-color:var(--danger)}
+.btn.ghost{background:transparent}
+.btn:hover{border-color:var(--outline);box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.btn:active,.chip-btn:active,.icon-btn:active{transform:translateY(1px)}
+.btn .btn-sub{display:block;font-size:11px;line-height:1.2;color:var(--muted);opacity:.95}
+
+#btnSkipBreak{min-height:25px;padding:12px 22px;font-size:12px;border-radius:999px;background:linear-gradient(180deg,var(--btnGrad1),var(--btnGrad2));border:1px solid var(--btnBorder);box-shadow:0 8px 18px rgba(0,0,0,.14), inset 0 0 0 1px rgba(255,255,255,.04)}
+#btnSkipBreak:hover{border-color:var(--outline);box-shadow:0 10px 20px rgba(0,0,0,.18)}
+
+button:disabled, input:disabled, select:disabled, textarea:disabled{opacity:.55;cursor:not-allowed;filter:grayscale(10%)}
+.ui-disabled{pointer-events:none !important}
+
+button,input,select,textarea{color:var(--text);font-family:inherit}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row.equal .btn{flex:1}
+input[type=number],select,textarea,input[type=text]{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--cardBorder);background:var(--chip);color:var(--text)}label{font-size:12px;color:var(--muted);display:block;margin:6px 0}
+.muted{color:var(--muted)}.small{font-size:11px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--cardBorder);background:var(--chip);font-size:12px}
+.pill:hover{border-color:var(--outline);box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.pill.block{display:flex;width:100%}
+.hr{height:1px;background:var(--cardBorder);margin:10px 0}
+.hidden{display:none!important}
+
+/* Left panel */
+#leftPanel{position:sticky;top:76px;align-self:start;height:calc(100vh - 92px);display:flex;flex-direction:column}
+#leftTimerPanel{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;flex:1;min-height:0}
+.big-timer{display:flex;align-items:center;justify-content:center;width:100%}
+.big-time{font-variant-numeric:tabular-nums;font-size:44px;font-weight:800}
+#leftPanel.timing::after{content:"";position:absolute;inset:0;padding:4px;border-radius:16px;background:conic-gradient(var(--progressColor) var(--deg),rgba(255,255,255,.08) 0);pointer-events:none;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+
+/* Right content */
+.content-wrap{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:16px}
+.q-rail{border-left:1px dashed var(--cardBorder);padding-left:12px;display:flex;flex-direction:column}
+.legend{margin-bottom:8px}.legend .line{display:block;margin:2px 0}
+.qnav-rail{display:grid;grid-template-columns:repeat(auto-fill,minmax(24px,1fr));gap:8px}
+.options{display:grid;gap:10px;margin-top:10px}
+.opt{border:1px solid var(--cardBorder);background:linear-gradient(180deg,var(--chipGrad1),var(--chipGrad2));padding:12px 14px;border-radius:12px;cursor:pointer}
+.opt input{margin-right:8px}
+.opt.selected{outline:2px solid var(--accent)}
+.stem{white-space:pre-wrap;line-height:1.6;font-size:18px}
+.qnav-rail .dot{width:28px;height:28px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:12px;border:1px solid var(--dotBorder);background:var(--dotBg);color:var(--text);cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);transition:border-color .2s ease, box-shadow .2s ease}
+.qnav-rail .dot:hover{border-color:var(--outline);box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.qnav-rail .dot.answered{background:var(--answeredBg);border-color:var(--answeredBorder)}
+.qnav-rail .dot.flagged{background:var(--flagBg);border-color:var(--flagBorder)}
+.qnav-rail .dot.current{outline:2px solid var(--accent)}
+
+/* Bank */
+#bankPanel .search{position:relative}#bankPanel #searchBox{padding-left:12px;height:40px;border-radius:12px}
+#bankPanel .search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:8px;border:1px solid var(--cardBorder);background:var(--chip);cursor:pointer;display:none}
+#bankPanel .search.has-text .search-clear{display:flex;align-items:center;justify-content:center}
+#bankPanel .group-list{display:flex;flex-direction:column;gap:10px}
+.group-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--cardBorder);background:var(--chip);cursor:pointer}
+.group-toggle:hover{border-color:var(--outline);box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.group-toggle .left{display:flex;align-items:center;gap:8px}.group-toggle .spec-title{font-weight:700;font-size:16px}.group-toggle .count{font-size:12px;color:var(--muted)}
+.group-body{border:1px solid var(--cardBorder);border-top:none;border-radius:0 0 12px 12px;overflow:hidden;display:none}
+.group.expanded .group-body{display:block}
+.qa-table{width:100%;border-collapse:collapse}
+.qa-table thead th{border-top:none;border-bottom:1px solid var(--cardBorder);padding:10px;text-align:left;vertical-align:top}
+.qa-table td{border-top:1px dashed var(--cardBorder);padding:10px;text-align:left;vertical-align:top}
+.qa-actions{display:flex;gap:10px}
+.qa-actions .icon-btn{width:28px;height:28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--cardBorder);background:var(--chip);cursor:pointer}
+.qa-actions .icon-btn:hover{border-color:var(--outline);box-shadow:0 6px 18px rgba(0,0,0,.2)}
+
+/* Welcome overlay */
+#welcomePanel{position:fixed;inset:0;z-index:250;display:flex;align-items:center;justify-content:center;background:radial-gradient(60% 40% at 50% 20%,rgba(120,176,255,.12),transparent 60%),linear-gradient(180deg,rgba(10,15,31,.96),rgba(10,15,31,.88))}
+
+/* Break screen — centered card, no image, no FX */
+#breakPanel{position:relative}
+#breakPanel .wrap{background:transparent;border:none;box-shadow:none;display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 160px)}
+.break-hero{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:28px;border-radius:16px;;max-width:560px;width:min(92%,560px);margin:0 auto;text-align:center}
+.break-icon{font-size:60px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.25))}
+.break-title{font-size:26px;font-weight:800;letter-spacing:.02em}
+.break-sub{color:var(--muted);font-size:10px}
+
+/* Results — smaller fonts, roomier spacing, softer shadows */
+#resultPanel{position:relative;overflow:hidden}
+#fireworks{position:absolute;inset:0;pointer-events:none}
+.result-shell{display:grid;gap:20px}
+.result-hero{position:relative;border-radius:16px;border:1px solid var(--cardBorder);overflow:hidden;min-height:60px;background:
+  radial-gradient(80% 60% at 30% 20%, rgba(120,176,255,.10), transparent 60%),
+  linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+.result-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.22;filter:contrast(1.05) saturate(1.05)}
+.result-hero .hero-content{position:relative;z-index:1;padding:12px}
+.result-hero .hero-title{font-size:16px;font-weight:800;letter-spacing:.02em;margin:0;line-height:1}
+.result-hero .hero-sub{font-size:10px;color:var(--muted)}
+
+.result-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.metric-card{position:relative;margin:10px 0px;border:1px solid var(--cardBorder);border-radius:14px;padding:10px 12px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.metric-card::after{content:"";position:absolute;inset:-1px;border-radius:16px;padding:1px;background:linear-gradient(120deg,transparent,rgba(120,176,255,.35),transparent);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+body[data-theme=light] .metric-card{background:#fff}
+.metric-title{font-size:10px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.metric-value{font-size:20px;font-weight:800;margin-top:6px}
+.metric-sub{font-size:11px;color:var(--muted)}
+
+.result-table-wrap{border:1px solid var(--cardBorder);border-radius:14px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));box-shadow:0 2px 6px rgba(0,0,0,.10)}
+body[data-theme=light] .result-table-wrap{background:#fff}
+.table{width:100%;border-collapse:separate;border-spacing:0}
+.table thead th{position:sticky;top:0;background:var(--chip);border-bottom:1px solid var(--cardBorder);padding:8px 10px;text-align:left}
+.table tbody td{padding:14px 10px;border-bottom:1px dashed var(--cardBorder)}
+.table tbody tr:nth-child(odd){background:rgba(255,255,255,.02)}
+body[data-theme=light] .table tbody tr:nth-child(odd){background:#f9fafb}
+.pct-cell{position:relative;height:20px;border-radius:999px;background:var(--track);overflow:hidden}
+.pct-bar{position:absolute;left:0;top:0;bottom:0;background:var(--progressColor);opacity:.65}
+.pct-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;font-size:11px}
+.result-actions{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.result-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px dashed var(--cardBorder);background:var(--chip);font-size:12px}
+
+.center{text-align:center}
+.credit{font-size:10px;color:var(--muted)}
+</style></head>
+<body data-theme="dark">
+<section id="welcomePanel"><div id="welcomeCard" class="card" style="max-width:780px;width:92%;text-align:center;box-shadow:0 18px 44px rgba(0,0,0,.40)"><div style="font-size:42px">🚀</div><h2 id="welcomeTitle" style="font-size:30px;margin:6px 0">ITE‑style Exam</h2><p id="welcomeTag" class="muted" style="margin:0 0 16px">Chào mừng bạn đến với ITE‑style Exam</p><div class="row" style="justify-content:center;margin-top:8px"><button class="btn ok" id="btnWelcomeStart">Bắt đầu</button></div><div id="welcomeBy" class="small muted" style="margin-top:14px">By #Gấuu🐻</div></div></section>
+
+<header><div class="wrap"><div class="brand">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.88L18.18 22 12 18.77 5.82 22 7 14.15l-5-4.88 6.91-1.01L12 2z" fill="#6aa6ff"/></svg>
+  <h1 id="i_appTitle">ITE-style Exam</h1><span class="tag" id="i_tag">Vietnamese</span>
+  <button class="chip-btn lang-toggle" id="btnLang"><span class="lang-flags" id="langFlags"></span></button>
+  <button class="chip-btn theme-toggle" id="btnTheme">🌙</button>
+</div></div></header>
+
+<main class="grid">
+  <aside class="card" id="leftPanel">
+    <h3 class="section-title" id="i_setupTitle">Thiết lập</h3>
+    <div id="setupPanel">
+      <label id="i_numBlocksLbl">⚡ Số block</label><input type="number" id="numBlocks" min="1" max="8" value="4"/>
+      <label id="i_qPerBlockLbl">⚡ Số câu mỗi block</label><input type="number" id="qPerBlock" min="1" max="150" value="10"/>
+      <label id="i_minsPerBlockLbl">⚡ Thời gian mỗi block (phút)</label><input type="number" id="minsPerBlock" min="5" max="240" value="20"/>
+      <label id="i_breakMinsLbl">⚡ Nghỉ giữa block (phút)</label><input type="number" id="breakMins" min="0" max="60" value="2"/>
+      <label id="i_optionsLbl">⚡ Tuỳ chọn</label>
+      <div class="row" style="flex-direction:column">
+        <label class="pill block"><input type="checkbox" id="shuffleItems" checked> <span id="i_shuffleItems">Trộn câu hỏi</span></label>
+        <label class="pill block"><input type="checkbox" id="shuffleOptions" checked> <span id="i_shuffleOptions">Trộn đáp án</span></label>
+      </div>
+      <div class="hr"></div>
+      <div class="row" style="flex-direction:column;gap:8px">
+        <button class="btn sm block" id="btnBank">📝 <span id="i_bankBtn">Ngân hàng</span></button>
+        <button class="btn sm block" id="btnAddItem">➕ <span id="i_addBtn">Tạo câu mới</span><span class="btn-sub" id="noteAddManual">Thêm thủ công</span></button>
+        <button class="btn sm block" id="btnImport">⬇️ <span id="i_importBtn">Import</span><span class="btn-sub" id="noteImport">.json</span></button>
+      </div>
+      <div class="hr"></div>
+      <button class="btn ok block" id="btnStart">🚀 <span id="i_startBtn">Bắt đầu thi</span></button>
+    </div>
+
+    <div id="leftTimerPanel" class="hidden">
+      <div class="big-timer"><div class="inner"><div class="big-time" id="bigTime">20:00</div><div class="small" id="bigTimeLabel">Thời gian còn lại</div></div></div>
+    </div>
+  </aside>
+
+  <section class="card" id="rightPanel">
+    <h3 class="section-title" id="i_contentTitle">Nội dung</h3>
+
+    <div id="bankPanel" class="panel hidden">
+      <div class="search"><input type="text" id="searchBox" placeholder="🔍 Tìm theo stem/chủ đề..." style="width:100%"/><button class="search-clear" id="clearSearch">✕</button></div>
+      <div id="bankGroups" class="group-list" style="margin-top:8px"></div>
+    </div>
+
+    <section id="createPanel" class="panel hidden" aria-live="polite">
+      <div class="row">
+        <div style="flex:1;min-width:200px"><label id="i_idLbl">ID</label><input type="text" id="item_id" placeholder="vd. cards_101"/></div>
+        <div style="flex:1;min-width:200px"><label id="i_specLbl">Chuyên khoa</label>
+          <select id="item_spec">
+            <option>Cardiology</option><option>Pulmonology</option><option>Nephrology</option><option>Gastroenterology</option><option>Endocrinology</option><option>Infectious Disease</option><option>Hematology</option><option>Rheumatology</option><option>Neurology</option><option>Oncology</option><option>Others</option>
+          </select>
+        </div>
+      </div>
+      <label id="i_stemLbl">Stem (vignette / nội dung câu hỏi)</label>
+      <textarea id="item_stem" rows="5" placeholder="Nhập đề bài..."></textarea>
+      <div class="row" style="justify-content:space-between;align-items:center;margin-top:8px">
+        <h4 style="margin:0 0 8px" id="i_answerLbl">Đáp án</h4>
+        <button class="btn sm" id="btnAddOption">➕ <span id="i_addOptionBtn">Thêm đáp án</span></button>
+      </div>
+      <div class="options" id="item_options_box"></div>
+      <label id="i_explLbl">Giải thích</label>
+      <textarea id="item_expl" rows="3" placeholder="Giải thích ngắn gọn..."></textarea>
+      <div class="row" style="margin-top:8px;justify-content:flex-end">
+        <button class="btn ghost sm" id="btnCancelItem"><span id="i_cancel">Đóng</span></button>
+        <button class="btn ok sm" id="btnSaveItem">💾 <span id="i_saveQ">Lưu câu hỏi</span></button>
+      </div>
+    </section>
+
+    <div id="examPanel" class="panel hidden">
+      <div class="content-wrap">
+        <div class="question-pane">
+          <div id="questionArea">
+            <div id="stem" class="stem"></div>
+            <div id="options" class="options"></div>
+          </div>
+        </div>
+        <aside class="q-rail">
+          <div id="blockHeading" class="pill small" style="margin-bottom:8px">Block 1/1</div>
+          <div id="legendRight" class="legend small"></div>
+          <div id="qNavRail" class="qnav-rail"></div>
+          <div class="hr"></div>
+          <div class="row equal"><button class="btn sm" id="btnPrev">⬅️ <span id="i_prevBtn">Trước</span></button><button class="btn sm" id="btnNext"><span id="i_nextBtn">Tiếp</span> ➡️</button></div>
+          <div class="row equal" style="margin-top:8px"><button class="btn warn sm" id="btnFlag">🚩 <span id="i_flagBtn">Gắn cờ (F)</span></button><button class="btn ghost sm" id="btnClear">♻️ <span id="i_clearBtn">Xoá chọn</span></button></div>
+          <div class="row equal" style="margin-top:8px"><button class="btn ok sm" id="btnReview">🗂️ <span id="i_reviewBtn">Review</span></button><button class="btn danger sm" id="btnSubmitBlock">✅ <span id="i_submitBtn">Nộp block</span></button></div>
+          <div class="row equal" style="margin-top:8px"><button class="btn ghost sm" id="btnBackToSetupExam">⬅️ <span id="i_backBtnExam">Quay lại cài đặt</span></button></div>
+        </aside>
+      </div>
+    </div>
+
+    <div id="breakPanel" class="panel hidden">
+      <div class="wrap" style="position:relative">
+        <div class="break-hero">
+          <div class="break-icon">☕</div>
+          <div class="break-title" id="breakHeroTitle"></div>
+          <div class="break-sub" id="breakHeroSub">You can adjust break time in the left sidebar.</div>
+          <div id="breakMotivation" class="small" style="margin-top:6px;text-align:center;font-size: 15px;"></div>
+          <div class="break-actions" style="display:flex;justify-content:center;margin-top:14px"><button class="btn" id="btnSkipBreak">⏭️ <span id="i_skipBreak">Bỏ qua nghỉ</span></button></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="reviewPanel" class="panel hidden">
+      <h4 id="i_reviewTitle" class="section-title" style="text-transform:none">Review</h4>
+      <div id="reviewGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px"></div>
+    </div>
+
+    <div id="resultPanel" class="panel hidden">
+      <canvas id="fireworks"></canvas>
+      <div class="result-hero">
+        <img id="resultHeroImg" alt="Decorative"/>
+        <div class="hero-content">
+          <h3 id="i_resultTitle" class="hero-title">Kết quả</h3>
+          <div class="hero-sub" id="heroSub">Thống kê theo block & chuyên khoa</div>
+        </div>
+      </div>
+      <div id="resultSummary" class="result-shell"></div>
+      <div id="topSpecBlock" class="small center" style="margin-top:8px; display: none;"></div>
+      <div class="result-actions">
+        <div class="result-badges" id="resultBadges"></div>
+        <div>
+          <button class="btn ghost sm" id="btnBackToSetupResult">⬅️ <span id="i_backBtn">Quay lại cài đặt</span></button>
+        </div>
+      </div>
+      <div class="hr"></div>
+      <h4 id="i_bySpec" class="section-title" style="text-transform:none"></h4>
+      <div class="result-table-wrap">
+        <table class="table" id="specTable"><thead><tr><th id="i_spec">Chuyên khoa</th><th id="i_correct">Đúng</th><th id="i_total">Tổng</th><th>%</th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="hr"></div>
+    </div>
+  </section>
+</main>
+
+<!-- Import modal -->
+<div id="importModal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="importTitle" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);z-index:260"><div class="card" style="max-width:780px;width:92%"><h3 id="importTitle">Import JSON</h3><p id="importDesc" class="small muted">Mẫu cấu trúc JSON cho ngân hàng câu hỏi:</p><pre id="jsonTemplate" style="max-height:360px;overflow:auto;border:1px solid var(--cardBorder);background:var(--chip);padding:12px;border-radius:12px">[  {"id":"cards_101","specialty":"Cardiology","stem":"A 65-year-old man presents with chest pain...","options":["STEMI","NSTEMI","Unstable angina","Pericarditis"],"correctIndex":1,"explanation":"NSTEMI because ..."} ]</pre><div class="row" style="justify-content:flex-end"><input id="jsonFileInput" type="file" accept=".json,application/json" class="hidden"/><button class="btn sm" id="btnChooseJson">📂 <span id="chooseJsonLabel">Chọn file .json</span></button><button class="btn ghost sm" id="btnCloseImport">✖️ <span id="closeImportLabel">Đóng</span></button></div></div></div>
+
+<script>
+// ---------- Helpers ----------
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const on=(e,t,f)=>e&&e.addEventListener(t,f);
+const pad=n=>n.toString().padStart(2,'0');
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const show=e=>e&&e.classList.remove('hidden'), hide=e=>e&&e.classList.add('hidden'), isShown=e=>e&&!e.classList.contains('hidden');
+const pct=n=>{const v=n*100,r=Math.abs(v-Math.round(v))<1e-9;return (r?Math.round(v):v.toFixed(1))+'%'};
+
+// ---------- I18N ----------
+const L='ite_lang', TH='ite_theme';
+const dict={
+  vi:{appTitle:'ITE-style Exam',tag:'Vietnamese',setupTitle:'Thiết lập',numBlocksLbl:'⚡ Số block',qPerBlockLbl:'⚡ Số câu mỗi block',minsPerBlockLbl:'⚡ Thời gian mỗi block (phút)',optionsLbl:'⚡ Tuỳ chọn',shuffleItems:'Trộn câu hỏi',shuffleOptions:'Trộn đáp án',bankBtn:'Ngân hàng',addBtn:'Tạo câu mới',importBtn:'Import',startBtn:'Bắt đầu thi',blockLbl:'Block',prevBtn:'Trước',nextBtn:'Tiếp',flagBtn:'Gắn cờ (F)',clearBtn:'Xoá chọn',reviewBtn:'Review',submitBtn:'Nộp block',backBtn:'Quay lại cài đặt',contentTitle:'Nội dung',bankTitle:'Ngân hàng câu hỏi',close:'Đóng',questionLbl:'Câu',reviewTitle:'Review',resultTitle:'Kết quả',topSpecTitle:'Chuyên khoa cao điểm nhất',bySpec:'Theo chuyên khoa',spec:'Chuyên khoa',correct:'Đúng',total:'Tổng',retake:'Thi lại',breakMinsLbl:'⚡ Nghỉ giữa block (phút)',breakTitle:'Giải lao',breakHint:'Bạn có thể chỉnh thời gian nghỉ ở thanh bên trái.',skipBreak:'Bỏ qua nghỉ',newQTitle:'Tạo câu hỏi mới',idLbl:'ID',specLbl:'Chuyên khoa',stemLbl:'Stem',answerLbl:'Đáp án',addOptionBtn:'Thêm đáp án',explLbl:'Giải thích (tuỳ chọn)',cancel:'Đóng',saveQ:'Lưu câu hỏi',legendCaption:'Ghi chú:',legend_unanswered:'⬜ Chưa làm',legend_flagged:'🟧 Gắn cờ',legend_answered:'🟩 Đã trả lời',timeLeft:'Thời gian còn lại',welcomeStart:'Bắt đầu',welcomeTag:'Chào mừng bạn đến với ITE‑style Exam',msgEmptyBank:'Ngân hàng trống. Hãy Import JSON hoặc tạo câu hỏi.',msgTimeUp:'Hết thời gian block này. Tự động nộp.',msgSubmitConfirm:'Xác nhận nộp block này?',msgBackConfirm:'Thoát khỏi bài thi và quay lại cài đặt? Tiến độ hiện tại sẽ mất.',msgSaved:'Đã lưu câu hỏi vào ngân hàng.',msgUpdated:'Đã cập nhật câu hỏi.',msgNeedStem:'Vui lòng nhập stem.',msgNeedChoices:'Cần ít nhất 2 đáp án.',msgNeedCorrect:'Chọn đáp án đúng.',msgCorrectOOB:'Đáp án đúng vượt quá số lựa chọn đã nhập.',msgIDExists:'ID đã tồn tại. Bỏ qua câu trùng.',msgImportOK:'Đã thêm {n} câu, bỏ qua {s} câu trùng.',msgImportErr:'Import lỗi: ',noteAddManual:'Thêm thủ công',noteImport:'.json',importTitle:'Import JSON',importDesc:'Mẫu cấu trúc JSON cho ngân hàng câu hỏi:',chooseJson:'Chọn file .json',close:'Đóng',edit:'Sửa',delete:'Xoá',breakLeft:'Thời gian nghỉ'},
+  en:{appTitle:'ITE-style Exam',tag:'English',setupTitle:'Setup',numBlocksLbl:'⚡ Number of blocks',qPerBlockLbl:'⚡ Questions per block',minsPerBlockLbl:'⚡ Minutes per block',optionsLbl:'⚡ Options',shuffleItems:'Shuffle questions',shuffleOptions:'Shuffle choices',bankBtn:'Question bank',addBtn:'Create',importBtn:'Import',startBtn:'Start exam',blockLbl:'Block',prevBtn:'Prev',nextBtn:'Next',flagBtn:'Flag (F)',clearBtn:'Clear',reviewBtn:'Review',submitBtn:'Submit block',backBtn:'Back to setup',contentTitle:'Content',bankTitle:'Question bank',close:'Close',questionLbl:'Q',reviewTitle:'Review',resultTitle:'Results',topSpecTitle:'Top specialty',bySpec:'By specialty',spec:'Specialty',correct:'Correct',total:'Total',retake:'Retake',breakMinsLbl:'⚡ Break between blocks (min)',breakTitle:'Break',breakHint:'You can adjust break time in the left sidebar.',skipBreak:'Skip break',newQTitle:'New question',idLbl:'ID',specLbl:'Specialty',stemLbl:'Stem',answerLbl:'Answers',addOptionBtn:'Add option',explLbl:'Explanation (optional)',cancel:'Close',saveQ:'Save question',legendCaption:'Legend:',legend_unanswered:'⬜ Unanswered',legend_flagged:'🟧 Flagged',legend_answered:'🟩 Answered',timeLeft:'Time left',welcomeStart:'Enter',welcomeTag:'Welcome to ITE‑style Exam',msgEmptyBank:'Question bank is empty. Please import JSON or create questions.',msgTimeUp:'Time up for this block. Auto-submit.',msgSubmitConfirm:'Submit this block?',msgBackConfirm:'Leave exam and go back to setup? Progress will be lost.',msgSaved:'Saved to bank.',msgUpdated:'Question updated.',msgNeedStem:'Please enter the stem.',msgNeedChoices:'Need at least 2 choices.',msgNeedCorrect:'Select the correct answer.',msgCorrectOOB:'Correct index exceeds choices.',msgIDExists:'ID exists. Skipping duplicate.',msgImportOK:'Added {n} new, skipped {s} duplicates.',msgImportErr:'Import error: ',noteAddManual:'Add manually',noteImport:'.json',importTitle:'Import JSON',importDesc:'Sample JSON structure for the question bank:',chooseJson:'Choose .json file',close:'Close',edit:'Edit',delete:'Delete',breakLeft:'Break time'}
+};
+const t=k=>(dict[localStorage.getItem(L)||'vi']||dict.vi)[k];
+
+function refreshTitle(){const d=dict[localStorage.getItem(L)||'vi'];const el=$('#i_contentTitle');if(!el)return;if(isShown($('#createPanel')))el.textContent=d.newQTitle;else if(isShown($('#bankPanel')))el.textContent=d.bankTitle;else if(isShown($('#examPanel')))el.textContent=d.contentTitle;else if(isShown($('#breakPanel')))el.textContent=d.breakTitle;else if(isShown($('#reviewPanel')))el.textContent=d.reviewTitle;else if(isShown($('#resultPanel')))el.textContent=d.resultTitle;else el.textContent=d.contentTitle}
+function legendHTML(lang){const d=dict[lang];return `<div class="small line">${d.legendCaption}</div><div class="small line">${d.legend_unanswered}</div><div class="small line">${d.legend_flagged}</div><div class="small line">${d.legend_answered}</div>`}
+
+function renderLangToggle(){const btn=$('#btnLang');if(!btn)return;const lang=localStorage.getItem(L)||'vi';const el=$('#langFlags');if(!el)return;const vn='https://cdn-icons-png.flaticon.com/512/197/197473.png'; const uk='https://cdn-icons-png.flaticon.com/512/197/197374.png';
+if(lang==='vi'){el.innerHTML=`<img class="lang-flag-img" src="${vn}" alt="VI"/> <span>VIE</span>`;} else {el.innerHTML=`<img class="lang-flag-img" src="${uk}" alt="EN"/> <span>ENG</span>`;}}
+
+function applyLang(lang){const d=dict[lang];if(!d)return;document.documentElement.lang=(lang==='vi'?'vi':'en');localStorage.setItem(L,lang);
+  const set=(id,txt)=>{const e=$(id);if(e)e.textContent=txt};
+  set('#i_appTitle',d.appTitle);set('#i_tag',d.tag);set('#i_setupTitle',d.setupTitle);set('#i_numBlocksLbl',d.numBlocksLbl);set('#i_qPerBlockLbl',d.qPerBlockLbl);set('#i_minsPerBlockLbl',d.minsPerBlockLbl);set('#i_optionsLbl',d.optionsLbl);set('#i_breakMinsLbl',d.breakMinsLbl);set('#i_shuffleItems',d.shuffleItems);set('#i_shuffleOptions',d.shuffleOptions);set('#i_bankBtn',d.bankBtn);set('#i_addBtn',d.addBtn);set('#i_importBtn',d.importBtn);set('#i_startBtn',d.startBtn);set('#i_prevBtn',d.prevBtn);set('#i_nextBtn',d.nextBtn);set('#i_flagBtn',d.flagBtn);set('#i_clearBtn',d.clearBtn);set('#i_reviewBtn',d.reviewBtn);set('#i_submitBtn',d.submitBtn);set('#i_backBtn',d.backBtn);set('#i_bySpec',d.bySpec);set('#i_spec',d.spec);set('#i_correct',d.correct);set('#i_total',d.total);set('#i_idLbl',d.idLbl);set('#i_specLbl',d.specLbl);set('#i_addOptionBtn',d.addOptionBtn);set('#i_explLbl',d.explLbl);set('#i_cancel',d.close);set('#i_saveQ',d.saveQ);set('#bigTimeLabel',d.timeLeft);set('#welcomeTag',d.welcomeTag);const w=$('#btnWelcomeStart');if(w)w.textContent=d.welcomeStart;set('#i_resultTitle',d.resultTitle);set('#breakHeroTitle',d.breakTitle);set('#breakHeroSub',d.breakHint);set('#i_skipBreak',d.skipBreak);set('#i_backBtnExam',d.backBtn);
+  const ans=$('#i_answerLbl');if(ans)ans.textContent=d.answerLbl;
+  const lg=$('#legendRight');if(lg)lg.innerHTML=legendHTML(lang);
+  const sb=$('#searchBox');if(sb)sb.placeholder=(lang==='vi'?'🔍 Tìm theo đề bài/chủ đề...':'🔍 Search by stem/topic...');
+  set('#noteAddManual',d.noteAddManual);set('#noteImport',d.noteImport);set('#importTitle',d.importTitle);set('#importDesc',d.importDesc);set('#chooseJsonLabel',d.chooseJson);set('#closeImportLabel',d.close);
+  refreshTitle();renderLangToggle();updateBreakMotivation();
+}
+
+function applyTheme(th){document.body.setAttribute('data-theme',th==='light'?'light':'dark');localStorage.setItem(TH,th);$('#btnTheme').textContent=(th==='light'?'🌞':'🌙');
+  const hero=$('#resultHeroImg');
+  if(hero){
+    hero.src = (th==='light')
+      ? 'https://images.pexels.com/photos/355423/pexels-photo-355423.jpeg?auto=compress&cs=tinysrgb&w=1600'
+      : 'https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&cs=tinysrgb&w=1600';
+  }
+}
+
+// ---------- Storage ----------
+const LS='ite_bank_v1';
+const getBank=()=>{try{const r=localStorage.getItem(LS);return r?JSON.parse(r):[]}catch(e){alert(t('msgImportErr')+e.message);return[]}};
+const setBank=x=>localStorage.setItem(LS,JSON.stringify(x));
+
+// ---------- State ----------
+let state={items:[],forms:[],blockIndex:0,qIndex:0,selections:{},flags:{},timerId:null,secondsLeft:0,totalSeconds:0}, editing=false, editId=null, timerMode='exam';
+const curBlock=()=>state.forms[state.blockIndex]||{start:0,end:0};
+const curItems=()=>{const{start,end}=curBlock();return state.items.slice(start,end)};
+const curItem=()=>curItems()[state.qIndex];
+
+// ---------- Exam ----------
+function assembleExam(){const bank=getBank();if(bank.length===0){alert(t('msgEmptyBank'));return false}
+  const n=Math.max(1,Math.min(8,parseInt($('#numBlocks').value||'4'))),q=Math.max(1,Math.min(150,parseInt($('#qPerBlock').value||'10'))),need=n*q;
+  let items=bank.slice();if($('#shuffleItems').checked)shuffle(items);
+  if(items.length<need){const times=Math.ceil(need/items.length);let ext=[];for(let i=0;i<times;i++)ext=ext.concat(shuffle(bank.slice()));items=ext}
+  items=items.slice(0,need).map((it,idx)=>{const clone=JSON.parse(JSON.stringify(it));clone.__order=idx;return clone});
+  if($('#shuffleOptions').checked){items.forEach(it=>{const z=it.options.map((o,i)=>({o,i}));shuffle(z);it.options=z.map(v=>v.o);it.__answerMap=z.findIndex(v=>v.i===it.correctIndex)})}else items.forEach(it=>it.__answerMap=it.correctIndex);
+  let forms=[];for(let b=0,s=0;b<n;b++){const e=s+q;forms.push({start:s,end:e});s=e}
+  state={...state,items,forms,blockIndex:0,qIndex:0,selections:{},flags:{}};
+  updateBlockHeading();
+  return true
+}
+
+function renderRail(){const rail=$('#qNavRail');rail.innerHTML='';curItems().forEach((it,i)=>{const d=document.createElement('div');d.className='dot';const sel=state.selections[it.id];if(sel!==undefined)d.classList.add('answered');if(state.flags[it.id])d.classList.add('flagged');if(i===state.qIndex)d.classList.add('current');d.textContent=i+1;d.title=(t('questionLbl')||'Q')+' '+(i+1);d.onclick=()=>{state.qIndex=i;renderAll()};rail.appendChild(d)})}
+
+function renderQ(){const it=curItem();if(!it)return;$('#stem').textContent=it.stem;const box=$('#options');box.innerHTML='';it.options.forEach((opt,idx)=>{const lab=document.createElement('label');lab.className='opt';const inp=document.createElement('input');inp.type='radio';inp.name='opt';inp.value=idx;if(state.selections[it.id]===idx){inp.checked=true;lab.classList.add('selected')}inp.onchange=()=>{state.selections[it.id]=idx;renderRail()};lab.onclick=e=>{if(e.target!==inp){inp.checked=true;inp.dispatchEvent(new Event('change'))}};const span=document.createElement('span');span.textContent=opt;lab.appendChild(inp);lab.appendChild(span);box.appendChild(lab)})}
+
+const renderAll=()=>{renderRail();renderQ()};
+
+function setTimerUI(mode){timerMode=mode;if(mode==='exam'){const el=$('#bigTimeLabel');if(el)el.textContent=t('timeLeft');$('#leftPanel').style.setProperty('--progressColor',getComputedStyle(document.body).getPropertyValue('--accent'));hide($('#breakPanel'))}else{const el=$('#bigTimeLabel');if(el)el.textContent=t('breakLeft');$('#leftPanel').style.setProperty('--progressColor',getComputedStyle(document.body).getPropertyValue('--orange'))}}
+
+function startTimer(mins,mode='exam'){if(state.timerId)clearInterval(state.timerId);setTimerUI(mode);$('#leftPanel').classList.add('timing');show($('#leftTimerPanel'));state.totalSeconds=Math.max(1,Math.floor(mins*60));state.secondsLeft=state.totalSeconds;updateTimer();state.timerId=setInterval(()=>{state.secondsLeft--;updateTimer();if(state.secondsLeft<=0){clearInterval(state.timerId);if(mode==='exam'){alert(t('msgTimeUp'));submitBlock()}else nextAfterBreak()}},1000)}
+
+function updateTimer(){const m=Math.floor(state.secondsLeft/60),s=state.secondsLeft%60;$('#bigTime')&&($('#bigTime').textContent=`${pad(m)}:${pad(s)}`);const r=Math.max(0,Math.min(1,state.secondsLeft/(state.totalSeconds||1))),deg=Math.floor(r*360);$('#leftPanel')?.style.setProperty('--deg',deg+'deg')}
+
+function scoreBlock(b){const{start,end}=b;let c=0,tot=end-start,by={};for(let i=start;i<end;i++){const it=state.items[i],sel=state.selections[it.id],ok=(sel!==undefined&&sel===it.__answerMap);if(ok)c++;const sp=it.specialty||'Others';by[sp]=by[sp]||{correct:0,total:0};by[sp].total++;if(ok)by[sp].correct++}return{correct:c,total:tot,bySpec:by}}
+
+function scoreAll(){let c=0,t=0,agg={};state.forms.forEach(b=>{const s=scoreBlock(b);c+=s.correct;t+=s.total;for(const k in s.bySpec){const e=s.bySpec[k];agg[k]=agg[k]||{correct:0,total:0};agg[k].correct+=e.correct;agg[k].total+=e.total}});return{correct:c,total:t,bySpec:agg}}
+
+function showResults(){
+  const s=scoreAll(),entries=Object.entries(s.bySpec).map(([n,d])=>({name:n,correct:d.correct,total:d.total,pct:d.total?d.correct/d.total:0})).sort((a,b)=>b.pct-a.pct||b.total-a.total||a.name.localeCompare(b.name)),top=entries[0];
+  const lang=localStorage.getItem(L)||'vi';
+  const text={vi:{overall:'Tổng điểm',topSpec:'Chuyên khoa cao nhất',blocks:'Số block',flagged:'Câu gắn cờ'},en:{overall:'Overall score',topSpec:'Top specialty',blocks:'Blocks',flagged:'Flagged'}}[lang];
+  $('#i_resultTitle').textContent=(document.documentElement.lang==='en'?dict.en.resultTitle:dict.vi.resultTitle);
+  const flagsCount=Object.values(state.flags).filter(Boolean).length;const blocks=state.forms.length;
+  const topLine=top?`${top.correct}/${top.total} · ${pct(top.pct)}`:'—';
+  $('#resultSummary').innerHTML=`
+    <div class="result-metrics">
+      <div class="metric-card"><div class="metric-title">${text.overall}</div><div class="metric-value">${s.correct}/${s.total}</div><div class="metric-sub">${pct(s.correct/s.total)}</div></div>
+      <div class="metric-card"><div class="metric-title">${text.topSpec}</div><div class="metric-value">${top?top.name:'—'}</div><div class="metric-sub">${topLine}</div></div>
+      <div class="metric-card"><div class="metric-title">${text.blocks}</div><div class="metric-value">${blocks}</div><div class="metric-sub">${flagsCount} ${text.flagged.toLowerCase()}</div></div>
+    </div>`;
+  const ttl=(document.documentElement.lang==='en'?dict.en.topSpecTitle:dict.vi.topSpecTitle);
+  $('#topSpecBlock').innerHTML=top?`<strong>${ttl}:</strong> ${top.name} · ${top.correct}/${top.total} (${pct(top.pct)})`:'';
+  const badges=$('#resultBadges');
+  badges.innerHTML='';
+  if(top){const b=document.createElement('div');b.className='badge';b.innerHTML=`🏆 <span>${top.name}</span>`;badges.appendChild(b)}
+  const bf=document.createElement('div');bf.className='badge';bf.innerHTML=`🚩 <span>${flagsCount} ${text.flagged.toLowerCase()}</span>`;badges.appendChild(bf);
+
+  const tb=$('#specTable tbody');tb.innerHTML='';
+  Object.keys(s.bySpec).sort().forEach(sp=>{const e=s.bySpec[sp],p=e.total?e.correct/e.total:0,tr=document.createElement('tr');tr.innerHTML=`<td>${sp}</td><td>${e.correct}</td><td>${e.total}</td><td><div class="pct-cell"><div class="pct-bar" style="width:${(p*100).toFixed(1)}%"></div><div class="pct-text">${pct(p)}</div></div></td>`;tb.appendChild(tr)});
+
+  hide($('#examPanel'));hide($('#reviewPanel'));hide($('#breakPanel'));show($('#resultPanel'));
+  $('#leftPanel').classList.remove('timing');hide($('#leftTimerPanel'));show($('#setupPanel'));
+  refreshTitle();
+  setResultsLock(true);
+  startFireworks(1400);
+}
+
+function updateBlockHeading(){const el=$('#blockHeading');if(!el)return;const d=dict[localStorage.getItem(L)||'vi'];el.textContent=`${d.blockLbl} ${state.blockIndex+1}/${Math.max(1,state.forms.length||1)}`}
+
+function groupBySpec(its){const m=new Map();its.forEach(q=>{const s=q.specialty||'Others';if(!m.has(s))m.set(s,[]);m.get(s).push(q)});return Array.from(m.entries()).sort((a,b)=>a[0].localeCompare(b[0]))}
+
+function renderBank(){const c=$('#bankGroups');c.innerHTML='';const w=$('#bankPanel .search');if(w){const v=($('#searchBox').value||'').trim();w.classList.toggle('has-text',v.length>0)}const data=getBank(),kw=($('#searchBox').value||'').toLowerCase(),filtered=data.filter(q=>!kw||q.stem.toLowerCase().includes(kw)||(q.explanation||'').toLowerCase().includes(kw)),groups=groupBySpec(filtered);if(groups.length===0){const d=document.createElement('div');d.className='muted';d.textContent=document.documentElement.lang==='en'?'No items found.':'Không có câu hỏi phù hợp.';c.appendChild(d);return}groups.forEach(([spec,items])=>{const g=document.createElement('div');g.className='group';const tog=document.createElement('button');tog.className='group-toggle';tog.innerHTML=`<div class="left"><span class="spec-title">${spec}</span><span class="count">${items.length} ${document.documentElement.lang==='en'?'items':'câu'}</span></div><div>▾</div>`;const body=document.createElement('div');body.className='group-body';const table=document.createElement('table');table.className='qa-table';table.innerHTML=`<thead><tr><th style="width:120px">ID</th><th>${document.documentElement.lang==='en'?'Stem':'Đề bài'}</th><th style="width:160px">${document.documentElement.lang==='en'?'Actions':'Thao tác'}</th></tr></thead><tbody></tbody>`;const tb=table.querySelector('tbody');items.forEach(q=>{const tr=document.createElement('tr'),td1=document.createElement('td'),td2=document.createElement('td'),td3=document.createElement('td');td1.innerHTML=`<span class="small muted">${q.id}</span>`;td2.textContent=q.stem;td3.className='qa-actions';const edit=document.createElement('button');edit.className='icon-btn';edit.textContent='✏️';edit.title=t('edit');edit.onclick=()=>startEdit(q);const del=document.createElement('button');del.className='icon-btn';del.textContent='🗑️';del.title=t('delete');del.onclick=()=>{if(confirm(document.documentElement.lang==='en'?'Delete this question?':'Xoá câu hỏi này?')){const bank=getBank().filter(x=>x.id!==q.id);setBank(bank);renderBank()}};td3.appendChild(edit);td3.appendChild(del);tr.append(td1,td2,td3);tb.appendChild(tr)});body.appendChild(table);tog.onclick=()=>g.classList.toggle('expanded');g.append(tog,body);c.appendChild(g)})}
+
+function startEdit(q){editing=true;editId=q.id;openCreate(q)}
+
+const optLbl=i=>String.fromCharCode(65+i);
+function rebuildOpt(){$$('#item_options_box .opt').forEach((row,idx)=>{const r=row.querySelector('input[type="radio"]'),t=row.querySelector('input[type="text"]');r.value=idx;t.placeholder=optLbl(idx)})}
+
+function addOpt(){const box=$('#item_options_box');if(box.querySelectorAll('.opt').length>=10){alert(document.documentElement.lang==='en'?'Up to 10 choices only.':'Tối đa 10 đáp án.');return}const row=document.createElement('label');row.className='opt';row.innerHTML=`<input type="radio" name="correct"><input type="text" style="width:90%" placeholder="">`;box.appendChild(row);rebuildOpt()}
+
+function resetForm(){editing=false;editId=null;$('#item_id').disabled=false;$('#item_id').value='';$('#item_spec').value='Cardiology';$('#item_stem').value='';$('#item_expl').value='';const box=$('#item_options_box');box.innerHTML='';for(let i=0;i<4;i++)addOpt();$$('input[name="correct"]').forEach(r=>r.checked=false);$('#i_saveQ').textContent=(document.documentElement.lang==='en'?'Save question':'Lưu câu hỏi')}
+
+function openCreate(pref){show($('#createPanel'));hide($('#bankPanel'));refreshTitle();$('#item_id').value=pref?.id||'';$('#item_id').disabled=!!editing;$('#item_spec').value=pref?.specialty||'Cardiology';$('#item_stem').value=pref?.stem||'';$('#item_expl').value=pref?.explanation||'';const box=$('#item_options_box');box.innerHTML='';const opts=pref?.options?.length?pref.options:["","","",""];opts.forEach(()=>addOpt());$$('#item_options_box input[type="text"]').forEach((t,i)=>t.value=opts[i]??'');if(typeof pref?.correctIndex==='number'){const r=$$('#item_options_box input[type="radio"][name="correct"]');if(r[pref.correctIndex])r[pref.correctIndex].checked=true}$('#i_saveQ').textContent=editing?(document.documentElement.lang==='en'?'Update question':'Cập nhật câu hỏi'):(document.documentElement.lang==='en'?'Save question':'Lưu câu hỏi')}
+
+function setTimerBreak(mins){if(state.timerId)clearInterval(state.timerId);setTimerUI('break');hide($('#reviewPanel'));hide($('#examPanel'));hide($('#resultPanel'));show($('#breakPanel'));refreshTitle();show($('#leftTimerPanel'));$('#leftPanel').classList.add('timing');state.totalSeconds=Math.max(1,Math.floor(mins*60));state.secondsLeft=state.totalSeconds;updateTimer();updateBreakMotivation();state.timerId=setInterval(()=>{state.secondsLeft--;updateTimer();if(state.secondsLeft<=0){clearInterval(state.timerId);nextAfterBreak()}},1000)}
+
+function nextAfterBreak(){show($('#examPanel'));show($('#leftTimerPanel'));$('#leftPanel').classList.add('timing');refreshTitle();renderAll();startTimer(parseInt($('#minsPerBlock').value||'20'),'exam')}
+
+function renderReview(){const g=$('#reviewGrid');g.innerHTML='';curItems().forEach((it,i)=>{const sel=state.selections[it.id],fl=!!state.flags[it.id],wrap=document.createElement('div');wrap.style.display='grid';wrap.style.gridTemplateColumns='44px 44px 44px';wrap.style.gap='6px';const mk=(cls,tx)=>{const b=document.createElement('button');b.className='btn sm '+(cls||'');b.style.minHeight='32px';b.textContent=tx;return b},bQ=mk('ghost',String(i+1)),bA=mk(sel===undefined?'danger':'ok',sel===undefined?'❌':String.fromCharCode(65+sel)),bF=mk(fl?'warn':'ghost','🚩');bQ.onclick=bA.onclick=()=>{state.qIndex=i;show($('#examPanel'));hide($('#reviewPanel'));show($('#leftTimerPanel'));refreshTitle();renderAll()};bF.onclick=()=>{state.flags[it.id]=!fl;renderReview();renderRail()};wrap.append(bQ,bA,bF);g.appendChild(wrap)})}
+
+function submitBlock(){const more=state.blockIndex<state.forms.length-1;if(more){state.blockIndex++;updateBlockHeading();state.qIndex=0;const mins=Math.max(0,parseInt($('#breakMins').value||'0'));if(mins>0){setTimerBreak(mins);return}show($('#leftTimerPanel'));show($('#examPanel'));hide($('#reviewPanel'));refreshTitle();renderAll();startTimer(parseInt($('#minsPerBlock').value||'20'),'exam')}else showResults()}
+
+function setResultsLock(lock){const allow=new Set(['btnStart','btnBackToSetupResult']);
+  document.querySelectorAll('button, input, select, textarea').forEach(el=>{
+    if(allow.has(el.id)){el.disabled=false; el.classList.remove('ui-disabled');}
+    else {el.disabled=!!lock; el.classList.toggle('ui-disabled', !!lock);} 
+  });
+}
+function unlockAllUI(){setResultsLock(false)}
+
+function goBackToSetup(){if(state.timerId) clearInterval(state.timerId);$('#leftPanel').classList.remove('timing'); hide($('#leftTimerPanel'));hide($('#examPanel')); hide($('#reviewPanel')); hide($('#breakPanel')); hide($('#resultPanel'));show($('#setupPanel'));const wp=$('#welcomePanel'); if(wp) wp.style.display='none';unlockAllUI(); refreshTitle();}
+
+// ---------- Fireworks (kept) ----------
+let FW={running:false,ctx:null,cv:null,parts:[],timer:0,raf:0};
+function fwResize(){if(!FW.cv)return;const p=$('#resultPanel');if(!p)return;const r=p.getBoundingClientRect();FW.cv.width=Math.max(300,Math.floor(r.width));FW.cv.height=Math.max(200,Math.floor(r.height));}
+function spawnBurst(){const cx=FW.cv.width*Math.random()*0.8+FW.cv.width*0.1;const cy=FW.cv.height*Math.random()*0.35+FW.cv.height*0.1;const count=80;for(let i=0;i<count;i++){const a=(Math.PI*2)*(i/count)+Math.random()*0.2;const sp=1.5+Math.random()*3.2;FW.parts.push({x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:60+Math.random()*30});}}
+function fwStep(){if(!FW.running)return;const ctx=FW.ctx, w=FW.cv.width, h=FW.cv.height;ctx.clearRect(0,0,w,h);ctx.globalCompositeOperation='lighter';FW.parts=FW.parts.filter(p=>p.life>0);for(const p of FW.parts){p.x+=p.vx; p.y+=p.vy; p.vy+=0.02; p.life-=1; ctx.globalAlpha=Math.max(0,p.life/90); ctx.beginPath(); ctx.arc(p.x,p.y,2,0,Math.PI*2); ctx.fillStyle=`hsl(${(p.life*4)%360} 90% 60%)`; ctx.fill();}if(FW.timer++%35===0)spawnBurst();FW.raf=requestAnimationFrame(fwStep);} 
+function startFireworks(ms=1400){const cv=$('#fireworks');if(!cv)return;FW.cv=cv;FW.ctx=cv.getContext('2d');FW.parts=[];FW.timer=0;FW.running=true;fwResize();window.addEventListener('resize',fwResize);cancelAnimationFrame(FW.raf);fwStep(); if(FW.stopTimer)clearTimeout(FW.stopTimer); FW.stopTimer=setTimeout(()=>{stopFireworks()}, Math.max(900, Math.min(1600, ms)));}
+function stopFireworks(){FW.running=false;cancelAnimationFrame(FW.raf);window.removeEventListener('resize',fwResize);if(FW.ctx){FW.ctx.clearRect(0,0,FW.cv.width,FW.cv.height);} }
+
+// ---------- Motivational lines ----------
+const mot={vi:['Khởi động tốt! Uống ngụm nước và thả lỏng vai nhé.','Giữ nhịp đều. Bạn làm rất ổn.','Tập trung vào tư duy chẩn đoán, đừng sa đà vào chi tiết.','Block cuối? Dồn lực nốt nào!'],en:['Great start! Sip some water and relax your shoulders.','Keep the pace. You’re doing well.','Think diagnostically; avoid rabbit holes.','Final block? Finish strong!']};
+function updateBreakMotivation(){const lang=localStorage.getItem(L)||'vi';const arr=mot[lang];if(!arr) return;const idx=Math.min(state.blockIndex,arr.length-1);const el=$('#breakMotivation');if(el) el.textContent=arr[idx];}
+
+// ---------- Events ----------
+on($('#btnWelcomeStart'),'click',()=>$('#welcomePanel').style.display='none');
+
+on($('#btnLang'),'click',()=>{const current=localStorage.getItem(L)||'vi';const next=(current==='vi')?'en':'vi';applyLang(next);});
+
+on($('#btnTheme'),'click',()=>{applyTheme((localStorage.getItem(TH)||'dark')==='dark'?'light':'dark')});
+
+on($('#btnBackToSetupResult'),'click',()=>{goBackToSetup()});
+
+on($('#btnBackToSetupExam'),'click',()=>{if(confirm(t('msgBackConfirm')))goBackToSetup()});
+
+on($('#btnBank'),'click',()=>{$('#leftPanel').classList.remove('timing');hide($('#leftTimerPanel'));hide($('#createPanel'));hide($('#examPanel'));hide($('#reviewPanel'));hide($('#breakPanel'));hide($('#resultPanel'));show($('#bankPanel'));refreshTitle();renderBank()});
+
+on($('#btnAddItem'),'click',()=>{$('#leftPanel').classList.remove('timing');hide($('#leftTimerPanel'));hide($('#bankPanel'));hide($('#examPanel'));hide($('#reviewPanel'));hide($('#breakPanel'));show($('#setupPanel'));show($('#createPanel'));refreshTitle();resetForm()});
+
+on($('#btnCancelItem'),'click',()=>{hide($('#createPanel'));refreshTitle()});
+
+on($('#btnAddOption'),'click',addOpt);
+
+on($('#btnImport'),'click',()=>{show($('#importModal'));applyLang(localStorage.getItem(L)||'vi')});
+
+on($('#btnCloseImport'),'click',()=>hide($('#importModal')));
+
+on($('#btnChooseJson'),'click',()=>$('#jsonFileInput').click());
+
+on($('#jsonFileInput'),'change',()=>{const input=$('#jsonFileInput');const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const arr=JSON.parse(r.result);if(!Array.isArray(arr))throw new Error('JSON must be an array of questions');const bank=getBank();const existing=new Set(bank.map(x=>x.id));let added=0,skipped=0;const seen=new Set();arr.forEach(q=>{if(!q||!q.id||seen.has(q.id)||existing.has(q.id)) {skipped++;seen.add(q.id);return}bank.push(q);existing.add(q.id);seen.add(q.id);added++});setBank(bank);alert((t('msgImportOK')||'').replace('{n}',added).replace('{s}',skipped));hide($('#importModal'));show($('#bankPanel'));hide($('#createPanel'));refreshTitle();renderBank()}catch(e){alert((t('msgImportErr')||'Import error: ')+e.message)} finally {input.value='';}};r.readAsText(f)});
+
+on($('#btnSaveItem'),'click',()=>{try{const id=($('#item_id').value||'').trim()||`custom_${Date.now()}`,spec=($('#item_spec').value||'').trim()||'Others',stem=($('#item_stem').value||'').trim(),expl=($('#item_expl').value||'').trim(),texts=Array.from($$('#item_options_box input[type="text"]')).map(t=>t.value.trim()),opts=texts.filter(Boolean),radios=$$('#item_options_box input[type="radio"][name="correct"]'),r=radios.find(x=>x.checked),correctIndex=r?parseInt(r.value):null;if(!stem)throw new Error(t('msgNeedStem'));if(opts.length<2)throw new Error(t('msgNeedChoices'));if(correctIndex===null||isNaN(correctIndex))throw new Error(t('msgNeedCorrect'));const mapIdx=[];texts.forEach((txt,i)=>{if(txt)mapIdx.push(i)});if(correctIndex>=texts.length)throw new Error(t('msgCorrectOOB'));if(!texts[correctIndex])throw new Error(t('msgNeedCorrect'));const compact=mapIdx.indexOf(correctIndex);if(compact===-1)throw new Error(t('msgNeedCorrect'));const bank=getBank();if(editing){const i=bank.findIndex(x=>x.id===editId);if(i===-1){alert('Not found.');return}bank[i]={id,specialty:spec,stem,options:opts,correctIndex:compact,explanation:expl};setBank(bank);alert(t('msgUpdated'))}else{const idx=bank.findIndex(x=>x.id===id);if(idx!==-1){alert(t('msgIDExists')); }else {bank.push({id,specialty:spec,stem,options:opts,correctIndex:compact,explanation:expl});setBank(bank);alert(t('msgSaved'))}}show($('#bankPanel'));hide($('#createPanel'));refreshTitle();renderBank();editing=false;editId=null;$('#item_id').disabled=false}catch(err){alert(err.message)}});
+
+on($('#btnStart'),'click',()=>{stopFireworks();const wp=$('#welcomePanel');if(wp&&wp.style.display!=="none")wp.style.display='none';unlockAllUI();if(!assembleExam())return;hide($('#bankPanel'));hide($('#createPanel'));hide($('#reviewPanel'));hide($('#resultPanel'));hide($('#setupPanel'));show($('#leftTimerPanel'));show($('#examPanel'));refreshTitle();renderAll();startTimer(parseInt($('#minsPerBlock').value||'20'),'exam')});
+
+on($('#btnPrev'),'click',()=>{if(state.qIndex>0){state.qIndex--;renderAll()}});
+
+on($('#btnNext'),'click',()=>{if(state.qIndex<curItems().length-1){state.qIndex++;renderAll()}});
+
+on($('#btnFlag'),'click',()=>{const it=curItem();if(!it)return;state.flags[it.id]=!state.flags[it.id];renderAll()});
+
+on($('#btnClear'),'click',()=>{const it=curItem();if(!it)return;delete state.selections[it.id];renderAll()});
+
+on($('#btnReview'),'click',()=>{renderReview();hide($('#examPanel'));show($('#reviewPanel'));show($('#leftTimerPanel'));refreshTitle()});
+
+on($('#btnSubmitBlock'),'click',()=>{if(confirm(t('msgSubmitConfirm')))submitBlock()});
+
+on($('#btnSkipBreak'),'click',()=>{if(timerMode!=='break')return;if(state.timerId)clearInterval(state.timerId);nextAfterBreak()});
+
+window.addEventListener('keydown',e=>{if(e.key&&e.key.toLowerCase()==='f'&&isShown($('#examPanel'))){const it=curItem();if(!it)return;state.flags[it.id]=!state.flags[it.id];renderAll()}});
+
+const sb=$('#searchBox'),cb=$('#clearSearch');
+if(sb)sb.addEventListener('input',()=>{renderBank();const w=$('#bankPanel .search');if(w)w.classList.toggle('has-text',sb.value.trim().length>0)});
+if(cb)cb.addEventListener('click',()=>{const el=$('#searchBox');if(el)el.value='';renderBank();const w=$('#bankPanel .search');if(w)w.classList.remove('has-text')});
+
+applyLang(localStorage.getItem(L)||'vi');
+applyTheme(localStorage.getItem(TH)||'dark');
+hide($('#leftTimerPanel'));
+show($('#setupPanel'));
+hide($('#breakPanel'));
+$('#legendRight').innerHTML=legendHTML(localStorage.getItem(L)||'vi');
+renderLangToggle();
+applyTheme(localStorage.getItem(TH)||'dark');
+</script>
+
+
+</body></html>
