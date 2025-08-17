@@ -3,7 +3,7 @@ name: Firebase Deploy
 on:
   push:
     branches:
-      - main  # Kích hoạt khi có push vào nhánh 'main'
+      - main
 
 jobs:
   deploy:
@@ -20,12 +20,12 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-      working-directory: C:\Users\Luan Tran\ITE  # Đảm bảo đúng thư mục chứa package.json
+      working-directory: ./ITE  # Sử dụng đường dẫn đúng tới thư mục chứa package.json
 
     - name: Build project
       run: npm run build
-      working-directory: C:\Users\Luan Tran\ITE  # Đảm bảo đúng thư mục chứa package.json
+      working-directory: ./ITE  # Sử dụng đường dẫn đúng tới thư mục chứa package.json
 
     - name: Deploy to Firebase
       run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
-      working-directory: C:\Users\Luan Tran\ITE  # Đảm bảo đúng thư mục chứa package.json
+      working-directory: ./ITE  # Sử dụng đường dẫn đúng tới thư mục chứa package.json
