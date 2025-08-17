@@ -9,3 +9,11 @@
   "author": "",
   "license": "ISC"
 }
+{
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",  // Thêm dòng này nếu bạn đang dùng React
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+}
