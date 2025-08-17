@@ -3,7 +3,7 @@ name: Firebase Deploy
 on:
   push:
     branches:
-      - main  # Kích hoạt khi có push vào nhánh 'main'
+      - main 
 
 jobs:
   deploy:
